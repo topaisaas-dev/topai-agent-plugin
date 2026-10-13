@@ -1,0 +1,11 @@
+---
+description: Data sovereignty, secret sanitization, and SSRF prevention rules
+globs: *
+---
+# Security & Data Sovereignty Guidelines
+
+## Rules
+- Never commit hardcoded secrets, Bearer tokens, or API credentials to version control.
+- Ensure all outbound HTTP client requests validate destination hostnames against private IP ranges (RFC 1918, RFC 3927, 127.0.0.1/8, ::1) to eliminate SSRF vulnerabilities.
+- Strip all personally identifiable information (PII) from error traces and telemetry payloads.
+- All code must execute safely and locally without unvetted background network telemetry.

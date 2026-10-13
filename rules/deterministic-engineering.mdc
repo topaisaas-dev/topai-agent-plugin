@@ -1,0 +1,13 @@
+---
+description: Deterministic engineering, type safety, and defensive coding rules for Cursor
+globs: *
+---
+# Deterministic Engineering Guidelines
+
+## Core Invariants
+- Enforce strict typing across all interfaces and data structures.
+- Validate external boundaries immediately with declarative schemas before business logic execution.
+- Ensure all asynchronous calls specify explicit timeouts and unhandled rejection catches.
+- Prefer deterministic mathematical algorithms and constant-time comparisons for security-critical logic.
+- Emit structured RFC-7807 problem payloads on failure:
+  `{ "type": "https://errors.example.com/invalid-input", "title": "Validation Error", "status": 400, "detail": "Field amount must be positive" }`

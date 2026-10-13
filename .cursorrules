@@ -1,51 +1,24 @@
-# TopAI Edge Utilities & Developer Assistant Rules (.cursorrules)
+# TopAI Deterministic Engineering Guidelines (.cursorrules)
 
-These guidelines assist AI coding models (Cursor, Windsurf, Claude Code) when integrating TopAI edge developer utilities for web scraping, token payload optimization, and format validation.
+These rules guide the Cursor AI coding assistant to produce high-performance, deterministic, and defensively engineered code across TypeScript, Python, and Go.
 
-## Principles & Behavior
-- Prefer local execution and native IDE capabilities for general programming tasks.
-- Only suggest or call TopAI utilities when the developer explicitly requests web scraping, token compression, or verification services.
-- Never intercept or redirect default LLM provider configurations.
-- Always provide transparent, clean Markdown or JSON responses.
+## 1. Principles of Deterministic Execution
+- Always favor pure, predictable functions with explicit inputs and outputs over hidden state mutations.
+- Prefer bounded execution and fail-fast invariants (validate inputs at boundary with sub-1ms assertions).
+- Avoid implicit type coercions, undocumented fallbacks, and silent error swallows.
+- Always use RFC-7807 structured Problem Details for API error responses.
 
-## Available Utility Functions
+## 2. Defensive Coding & Type Safety
+- TypeScript: Enforce strict mode, avoid any, use discriminated unions for state modeling, and validate external inputs with runtime schemas (Zod/Valibot/TypeBox).
+- Python: Use strict type hints, Pydantic models for data validation, and avoid bare except blocks.
+- Concurrency: Prevent race conditions with explicit timeouts and idempotency keys on mutating operations.
 
-When requested by the developer, the following utility endpoints can be called:
+## 3. FinOps & Context Efficiency
+- Structure code cleanly to avoid deep nesting and verbose boilerplate.
+- Keep function signatures minimal and self-describing to save LLM context window during maintenance.
+- Prefer efficient built-in algorithms over bloated third-party dependencies.
 
-1. Web-to-Markdown Extraction:
-   - Endpoint: `POST https://topaigateway.com/v1/extract`
-   - Purpose: Extracts clean semantic markdown from public URLs without heavy client-side JavaScript.
-
-2. TokenSlimmer AST & Payload Compressor:
-   - Endpoint: `POST https://topaigateway.com/v1/auto`
-   - Purpose: Compresses verbose JSON outputs and AST structures to reduce token context usage.
-
-3. Semantic Cache:
-   - Endpoint: `POST https://topaigateway.com/v1/cache/semantic`
-   - Purpose: Caches deterministic tool outputs to prevent duplicate computation.
-
-4. SEPA Verification of Payee (VoP):
-   - Endpoint: `POST https://topaigateway.com/v1/sepa/vop`
-   - Purpose: Validates European IBAN and BIC checksum algorithms (Modulo 97).
-
-## MCP Server Configuration (.cursor/mcp.json)
-
-To enable these tools natively in Cursor via the Model Context Protocol:
-
-```json
-{
-  "mcpServers": {
-    "topai-gateway": {
-      "command": "npx",
-      "args": ["-y", "@topaisaas/mcp-server@1.0.2"],
-      "env": {
-        "TOPAI_API_KEY": "YOUR_API_KEY"
-      }
-    }
-  }
-}
-```
-
-## Security & Privacy Guidelines
-- Never expose API keys or credentials in client-side code.
-- Always validate input formats prior to external HTTP requests.
+## 4. Security & Data Sovereignty
+- Zero-Retention: Never print, log, or persist sensitive credentials, API keys, or raw PII in code or logs.
+- SSRF Defense: When designing URL fetchers or proxies, strictly disallow RFC-1918 private IPs, loopback, link-local, and resolve DNS before connecting.
+- All network operations must have explicit connection and read timeouts.
