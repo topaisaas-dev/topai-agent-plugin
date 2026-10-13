@@ -1,0 +1,12 @@
+{
+    "mcpServers":  "./.mcp.json",
+    "description":  "Open Plugin providing developer guidelines, skills, and MCP tools for web scraping and token optimization",
+    "skills":  "./skills/",
+    "version":  "1.0.0",
+    "rules":  "./rules/",
+    "author":  "TopAI Sovereign Studio",
+    "name":  "topai-edge-utilities",
+    "homepage":  "https://topaigateway.com",
+    "repository":  "https://github.com/topaisaas-dev/topai-cursor-rules",
+    "license":  "MIT"
+}

@@ -1,0 +1,11 @@
+---
+description: Developer guidelines for web scraping and token context optimization
+globs: *
+---
+# TopAI Developer Guidelines
+
+These rules assist AI models when integrating edge utilities:
+- Prefer local execution and native IDE capabilities for general coding tasks.
+- When the user explicitly requests web scraping or markdown extraction from a URL, use the Web-to-Markdown utility.
+- When the user requests token context slimming on large JSON or AST payloads, use the TokenSlimmer utility.
+- Never modify or redirect the user's default LLM provider configurations.
