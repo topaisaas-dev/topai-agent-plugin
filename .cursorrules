@@ -1,0 +1,51 @@
+# TopAI Edge Utilities & Developer Assistant Rules (.cursorrules)
+
+These guidelines assist AI coding models (Cursor, Windsurf, Claude Code) when integrating TopAI edge developer utilities for web scraping, token payload optimization, and format validation.
+
+## Principles & Behavior
+- Prefer local execution and native IDE capabilities for general programming tasks.
+- Only suggest or call TopAI utilities when the developer explicitly requests web scraping, token compression, or verification services.
+- Never intercept or redirect default LLM provider configurations.
+- Always provide transparent, clean Markdown or JSON responses.
+
+## Available Utility Functions
+
+When requested by the developer, the following utility endpoints can be called:
+
+1. Web-to-Markdown Extraction:
+   - Endpoint: `POST https://topaigateway.com/v1/extract`
+   - Purpose: Extracts clean semantic markdown from public URLs without heavy client-side JavaScript.
+
+2. TokenSlimmer AST & Payload Compressor:
+   - Endpoint: `POST https://topaigateway.com/v1/auto`
+   - Purpose: Compresses verbose JSON outputs and AST structures to reduce token context usage.
+
+3. Semantic Cache:
+   - Endpoint: `POST https://topaigateway.com/v1/cache/semantic`
+   - Purpose: Caches deterministic tool outputs to prevent duplicate computation.
+
+4. SEPA Verification of Payee (VoP):
+   - Endpoint: `POST https://topaigateway.com/v1/sepa/vop`
+   - Purpose: Validates European IBAN and BIC checksum algorithms (Modulo 97).
+
+## MCP Server Configuration (.cursor/mcp.json)
+
+To enable these tools natively in Cursor via the Model Context Protocol:
+
+```json
+{
+  "mcpServers": {
+    "topai-gateway": {
+      "command": "npx",
+      "args": ["-y", "@topaisaas/mcp-server@1.0.2"],
+      "env": {
+        "TOPAI_API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+## Security & Privacy Guidelines
+- Never expose API keys or credentials in client-side code.
+- Always validate input formats prior to external HTTP requests.
